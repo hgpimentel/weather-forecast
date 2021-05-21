@@ -1,26 +1,27 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import { Route, Switch, Redirect } from "react-router-dom";
+import ROUTE from "./config/routes";
+import { Today, NextDays, NotFound } from "./pages";
+import { Layout } from "./components";
 
-function App() {
+const App = () => {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <Layout>
+      <Switch>
+        <Route exact path="/">
+          <Redirect to={ROUTE.TODAY} />
+        </Route>
+        <Route path={ROUTE.TODAY}>
+          <Today />
+        </Route>
+        <Route path={ROUTE.NEXT7DAYS}>
+          <NextDays />
+        </Route>
+        <Route path="*">
+          <NotFound />
+        </Route>
+      </Switch>
+    </Layout>
   );
-}
+};
 
 export default App;
