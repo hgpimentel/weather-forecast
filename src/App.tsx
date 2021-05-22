@@ -1,6 +1,6 @@
 import { Route, Switch, Redirect } from "react-router-dom";
 import ROUTE from "./config/routes";
-import { Today, NextDays, NotFound } from "./pages";
+import { Today, Daily, NotFound } from "./pages";
 import { Layout } from "./components";
 
 const App = () => {
@@ -14,7 +14,7 @@ const App = () => {
           <Today />
         </Route>
         <Route path={ROUTE.NEXT7DAYS}>
-          <NextDays />
+          <Daily />
         </Route>
         <Route path="*">
           <NotFound />

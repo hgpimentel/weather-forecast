@@ -4,7 +4,7 @@ import { CenteredContainer, ColumnContainer } from "../components";
 import getDailyForecast from "../api/getDailyForecast";
 import LocationContext from "../store/location-context";
 
-const NextDaysContainer = styled(ColumnContainer)`
+const DailyContainer = styled(ColumnContainer)`
   margin: 0 20%;
   padding: 2rem;
   border: 5px solid teal;
@@ -33,15 +33,17 @@ interface DailyForecast {
   wind: number;
 }
 
-const NextDays: React.FC = () => {
+const Daily: React.FC = () => {
   const [dailyForecasts, setDailyForecasts] =
     useState<DailyForecast[] | null>(null);
   const { currentLocation } = useContext(LocationContext);
+  const [isLoading, setIsLoading] = useState(false);
 
   useEffect(() => {
     if (currentLocation) {
-      getDailyForecast(currentLocation.lat, currentLocation.long).then(
-        (forecasts) => {
+      setIsLoading(true);
+      getDailyForecast(currentLocation.lat, currentLocation.long)
+        .then((forecasts) => {
           if (forecasts) {
             const dailyForecasts = forecasts.map<DailyForecast>((frc) => ({
               day: frc.dt,
@@ -52,16 +54,27 @@ const NextDays: React.FC = () => {
             }));
 
             setDailyForecasts(dailyForecasts);
+            return;
           }
-        }
-      );
+          setDailyForecasts(null);
+        })
+        .finally(() => {
+          setIsLoading(false);
+        });
     }
   }, [currentLocation]);
 
-  if (!dailyForecasts) return null;
+  if (isLoading) return null;
+
+  if (!dailyForecasts)
+    return (
+      <div>
+        <h1>No daily forecasts found!</h1>
+      </div>
+    );
 
   return (
-    <NextDaysContainer>
+    <DailyContainer>
       <CustomCenteredContainer>
         <div>
           <b>Day</b>
@@ -81,7 +94,7 @@ const NextDays: React.FC = () => {
       </CustomCenteredContainer>
       {dailyForecasts.map((df) => {
         return (
-          <CustomCenteredContainer>
+          <CustomCenteredContainer key={df.day}>
             <div>{df.day}</div>
             <div>{df.avgTemp}</div>
             <div>{df.sky}</div>
@@ -90,8 +103,8 @@ const NextDays: React.FC = () => {
           </CustomCenteredContainer>
         );
       })}
-    </NextDaysContainer>
+    </DailyContainer>
   );
 };
 
-export default NextDays;
+export default Daily;

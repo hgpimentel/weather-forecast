@@ -30,10 +30,13 @@ const Today: React.FC = () => {
   const [todayForecast, setTodayForecast] =
     useState<TodayForecast | null>(null);
 
+  const [isLoading, setIsLoading] = useState(false);
+
   useEffect(() => {
     if (currentLocation) {
-      getCurrentForecast(currentLocation.lat, currentLocation.long).then(
-        (forecast) => {
+      setIsLoading(true);
+      getCurrentForecast(currentLocation.lat, currentLocation.long)
+        .then((forecast) => {
           if (forecast) {
             setTodayForecast({
               time: forecast.sunrise,
@@ -42,13 +45,24 @@ const Today: React.FC = () => {
               temperature: forecast.temp,
               avgtemp: forecast.wind_speed,
             });
+            return;
           }
-        }
-      );
+          setTodayForecast(null);
+        })
+        .finally(() => {
+          setIsLoading(false);
+        });
     }
   }, [currentLocation]);
 
-  if (!todayForecast) return null;
+  if (isLoading) return null;
+
+  if (!todayForecast)
+    return (
+      <div>
+        <h1>No current forecast found!</h1>
+      </div>
+    );
 
   return (
     <TodayContainer>
