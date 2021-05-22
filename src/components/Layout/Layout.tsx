@@ -1,7 +1,7 @@
 import React from "react";
 import { NavLink } from "react-router-dom";
 import styled from "styled-components";
-import ROUTE from "../config/routes";
+import ROUTE from "../../config/routes";
 
 const Header = styled.header`
   width: 100%;
