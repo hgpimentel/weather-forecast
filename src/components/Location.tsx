@@ -7,8 +7,8 @@ import styled from "styled-components";
 const CustomColumnContainer = styled(ColumnContainer)`
   padding: 2rem 3rem;
 
-  & > div:nth-child(4) {
-    margin-bottom: 1rem;
+  & > div:last-child {
+    margin-top: 1rem;
   }
 `;
 
@@ -21,9 +21,13 @@ const Location: React.FC = () => {
     <CenteredContainer>
       <CustomColumnContainer>
         <div>
-          <h3>Current Location</h3>
+          <h3>Current location</h3>
         </div>
-        <div>{`${currentLocation.city}, ${currentLocation.country}`}</div>
+        {currentLocation.city && currentLocation.country ? (
+          <div>{`${currentLocation.city}, ${currentLocation.country}`}</div>
+        ) : (
+          <div>Browser based</div>
+        )}
         <div>Lat: {currentLocation.lat} </div>
         <div>Long: {currentLocation.long} </div>
         <div>

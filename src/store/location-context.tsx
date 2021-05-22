@@ -1,8 +1,8 @@
 import React, { useEffect, useState } from "react";
 
 interface Location {
-  city: string;
-  country: string;
+  city: string | null;
+  country: string | null;
   lat: number;
   long: number;
 }
@@ -28,6 +28,20 @@ export const LocationContextProvider: React.FC = ({ children }) => {
   const [location, setLocation] = useState<LocationType>(null);
 
   useEffect(() => {
+    if (navigator.geolocation) {
+      navigator.geolocation.getCurrentPosition(
+        (position) => {
+          setLocation({
+            country: null,
+            city: null,
+            long: position.coords.longitude,
+            lat: position.coords.latitude,
+          });
+        },
+        () => setLocation(DefaultLocation)
+      );
+      return;
+    }
     setLocation(DefaultLocation);
   }, []);
 
