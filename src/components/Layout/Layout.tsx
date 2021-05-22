@@ -2,15 +2,17 @@ import React from "react";
 import { NavLink } from "react-router-dom";
 import styled from "styled-components";
 import ROUTE from "../../config/routes";
+import ColumnContainer from "../Container/ColumnContainer";
+import Location from "../Location/Location";
 
 const Header = styled.header`
   width: 100%;
-  height: 5rem;
   display: flex;
   justify-content: space-between;
-  padding: 0 10%;
+  padding: 1rem 10% 0.5rem;
   align-items: center;
   background-color: #008080;
+  margin-bottom: 2rem;
 `;
 
 const Nav = styled.nav`
@@ -38,16 +40,21 @@ const Nav = styled.nav`
   }
 `;
 
-const Logo = styled.div`
-  font-size: 2rem;
+const Logo = styled(ColumnContainer)`
   color: white;
+  h1 {
+    margin: 0;
+  }
 `;
 
 const Layout: React.FC = ({ children }) => {
   return (
     <>
       <Header>
-        <Logo>Weather Forecast App</Logo>
+        <Logo>
+          <h1>Weather Forecast App</h1>
+          <Location />
+        </Logo>
         <Nav>
           <ul>
             <li>

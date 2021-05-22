@@ -32,6 +32,10 @@ const Form = styled.form`
     &:hover {
       background-color: rgba(0, 128, 128, 0.75);
     }
+
+    &:disabled {
+      background-color: rgba(0, 128, 128, 0.5);
+    }
   }
 `;
 

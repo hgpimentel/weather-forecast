@@ -1,15 +1,33 @@
 import React, { useContext, useState } from "react";
-import ColumnContainer from "../Container/ColumnContainer";
 import CenteredContainer from "../Container/CenteredContainer";
 import LocationContext from "../../store/location-context";
 import styled from "styled-components";
 import ChangeLocationModal from "./ChangeLocationModal";
 
-const CustomColumnContainer = styled(ColumnContainer)`
-  padding: 2rem 3rem;
+const CustomCenteredComponent = styled(CenteredContainer)`
+  align-items: center;
 
-  & > div:last-child {
-    margin-top: 1rem;
+  & > * {
+    margin-right: 10px;
+  }
+
+  button {
+    width: 150px;
+    text-align: center;
+    background-color: white;
+    color: white;
+    display: inline-block;
+    border-radius: 5px;
+    padding: 5px;
+    border: none;
+    cursor: pointer;
+    color: teal;
+    font-weight: bold;
+
+    &:hover {
+      background-color: ;
+      color: rgba(0, 128, 128, 0.75);
+    }
   }
 `;
 
@@ -29,23 +47,21 @@ const Location: React.FC = () => {
       {isChangeLocation && (
         <ChangeLocationModal closeModal={() => setIsChangeLocation(false)} />
       )}
-      <CenteredContainer>
-        <CustomColumnContainer>
-          <div>
-            <h3>Current location</h3>
-          </div>
-          {currentLocation.city && currentLocation.country ? (
-            <div>{`${currentLocation.city}, ${currentLocation.country}`}</div>
-          ) : (
-            <div>Browser based</div>
-          )}
-          <div>Lat: {currentLocation.lat} </div>
-          <div>Long: {currentLocation.long} </div>
-          <div>
-            <button onClick={openModal}>Change location</button>
-          </div>
-        </CustomColumnContainer>
-      </CenteredContainer>
+      <CustomCenteredComponent>
+        <div>
+          <h4>Current:</h4>
+        </div>
+        {currentLocation.city && currentLocation.country ? (
+          <div>{`${currentLocation.city}, ${currentLocation.country}`}</div>
+        ) : (
+          <div>Browser based</div>
+        )}
+        <div>Lat: {currentLocation.lat} </div>
+        <div>Long: {currentLocation.long} </div>
+        <div>
+          <button onClick={openModal}>Change location</button>
+        </div>
+      </CustomCenteredComponent>
     </>
   );
 };
