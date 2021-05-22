@@ -1,13 +1,13 @@
 import React, { useEffect, useState } from "react";
 
-interface Location {
+export interface Location {
   city: string | null;
   country: string | null;
   lat: number;
   long: number;
 }
 
-type LocationType = Location | null;
+export type LocationType = Location | null;
 
 const DefaultLocation: LocationType = {
   country: "Portugal",

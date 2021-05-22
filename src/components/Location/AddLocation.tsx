@@ -1,6 +1,39 @@
 import React, { useState, useContext } from "react";
 import { ColumnContainer } from "../../components";
-import LocationContext from "../../store/location-context";
+import LocationContext, { Location } from "../../store/location-context";
+import styled from "styled-components";
+
+const Form = styled.form`
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+
+  span {
+    width: 100px;
+  }
+
+  & > * {
+    margin-bottom: 0.5rem;
+    display: flex;
+  }
+
+  button {
+    width: 100px;
+    text-align: center;
+    margin-top: 0.5rem;
+    background-color: teal;
+    color: white;
+    display: inline-block;
+    padding: 5px;
+    border-radius: 5px;
+    border: none;
+    cursor: pointer;
+
+    &:hover {
+      background-color: rgba(0, 128, 128, 0.75);
+    }
+  }
+`;
 
 const AddLocation: React.FC<{ closeModal: () => void }> = ({ closeModal }) => {
   const [city, setCity] = useState<string>("");
@@ -11,12 +44,23 @@ const AddLocation: React.FC<{ closeModal: () => void }> = ({ closeModal }) => {
 
   const onSubmit = (e: React.SyntheticEvent) => {
     e.preventDefault();
-    onLocationChange({
+    const lsItem = localStorage.getItem("locations");
+    const locations = lsItem ? (JSON.parse(lsItem) as Location[]) : null;
+    const location: Location = {
       city,
       country,
       lat,
       long,
-    });
+    };
+
+    if (locations) {
+      locations.push(location);
+      localStorage.setItem("locations", JSON.stringify(locations));
+    } else {
+      localStorage.setItem("locations", JSON.stringify([location]));
+    }
+
+    onLocationChange(location);
     closeModal();
   };
 
@@ -25,11 +69,11 @@ const AddLocation: React.FC<{ closeModal: () => void }> = ({ closeModal }) => {
   return (
     <ColumnContainer>
       <div>
-        <h3>Add location</h3>
+        <h3>New location</h3>
       </div>
-      <form>
+      <Form>
         <div>
-          <label>City:</label>
+          <span>City</span>
           <input
             type="text"
             id="city"
@@ -39,7 +83,7 @@ const AddLocation: React.FC<{ closeModal: () => void }> = ({ closeModal }) => {
           />
         </div>
         <div>
-          <label>Country:</label>
+          <span>Country</span>
           <input
             type="text"
             id="country"
@@ -49,7 +93,7 @@ const AddLocation: React.FC<{ closeModal: () => void }> = ({ closeModal }) => {
           />
         </div>
         <div>
-          <label>Latitude:</label>
+          <span>Latitude</span>
           <input
             type="number"
             id="lat"
@@ -59,7 +103,7 @@ const AddLocation: React.FC<{ closeModal: () => void }> = ({ closeModal }) => {
           />
         </div>
         <div>
-          <label>Longitude:</label>
+          <span>Longitude</span>
           <input
             type="number"
             id="long"
@@ -71,7 +115,7 @@ const AddLocation: React.FC<{ closeModal: () => void }> = ({ closeModal }) => {
         <button type="submit" disabled={!canSubmit} onClick={onSubmit}>
           Add
         </button>
-      </form>
+      </Form>
     </ColumnContainer>
   );
 };
