@@ -1,0 +1,154 @@
+openapi: 3.0.1
+
+info:
+  title: Open Weather Map API
+  version: 1.0.0
+
+tags:
+  - name: Read
+    description: Read operations
+
+servers:
+  - url: https://api.openweathermap.org/data/2.5
+    description: API for getting weather forecast data
+
+paths:
+  /onecall:
+    get:
+      summary: Gets weather forecast data
+      tags:
+        - Read
+      responses:
+        200:
+          description: Weather forecast data
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ForecastResponse"
+        401:
+          description: Unauthorized
+        500:
+          description: Something failed
+
+components:
+  schemas:
+    Weather:
+      type: object
+      properties:
+        main:
+          type: string
+        description:
+          type: string
+    Temp:
+      type: object
+      properties:
+        day:
+          type: number
+        max:
+          type: number
+        night:
+          type: number
+        eve:
+          type: number
+        morn:
+          type: number
+      required:
+        - day
+        - max
+        - night
+        - eve
+        - morn
+    Daily:
+      type: object
+      properties:
+        dt:
+          type: number
+        sunrise:
+          type: number
+        sunset:
+          type: number
+        temp:
+          type: object
+          $ref: "#/components/schemas/Temp"
+        pressure:
+          type: number,
+        humidity:
+          type: number
+        wind_speed:
+          type: number
+        weather:
+          type: object
+          $ref: "#/components/schemas/Weather"
+        clouds:
+          type: number
+        rain:
+          type: number
+        uvi:
+          type: number
+      required:
+        - dt
+        - sunrise
+        - sunset
+        - temp
+        - pressure
+        - humidity
+        - wind_speed
+        - weather
+        - clouds
+        - rain
+        - uvi
+    Current:
+      type: object
+      properties:
+        dt:
+          type: string
+        sunrise:
+          type: string
+        sunset:
+          type: string
+        temp:
+          type: number
+        pressure:
+          type: number
+        humidity:
+          type: number
+        clouds:
+          type: number
+        visibility:
+          type: number
+        wind_speed:
+          type: number
+        weather:
+          type: object
+          $ref: "#/components/schemas/Weather"
+      required:
+        - dt
+        - sunrise
+        - sunset
+        - temp
+        - pressure
+        - humidity
+        - clouds
+        - visibility
+        - wind_speed
+        - weather
+    ForecastResponse:
+      type: object
+      properties:
+        lat:
+          type: number
+        lon:
+          type: number
+        timezone:
+          type: string
+        current:
+          type: object
+          $ref: "#/components/schemas/Current"
+        daily:
+          type: array
+          items:
+            $ref: "#/components/schemas/Daily"
+      required:
+        - lat
+        - lon
+        - timezone

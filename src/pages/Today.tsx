@@ -1,5 +1,8 @@
+import { useEffect, useContext, useState } from "react";
 import styled from "styled-components";
 import { CenteredContainer, ColumnContainer } from "../components";
+import LocationContext from "../store/location-context";
+import getCurrentForecast from "../api/getCurrentForecast";
 
 const TodayContainer = styled.div`
   display: flex;
@@ -14,21 +17,53 @@ const CustomCenteredContainer = styled(CenteredContainer)`
   align-items: center;
 `;
 
+interface TodayForecast {
+  time: string;
+  temperature: number;
+  sky: number;
+  rain: number;
+  avgtemp: number;
+}
+
 const Today: React.FC = () => {
+  const { currentLocation } = useContext(LocationContext);
+  const [todayForecast, setTodayForecast] =
+    useState<TodayForecast | null>(null);
+
+  useEffect(() => {
+    if (currentLocation) {
+      getCurrentForecast(currentLocation.lat, currentLocation.long).then(
+        (forecast) => {
+          if (forecast) {
+            setTodayForecast({
+              time: forecast.sunrise,
+              rain: forecast.pressure,
+              sky: forecast.humidity,
+              temperature: forecast.temp,
+              avgtemp: forecast.wind_speed,
+            });
+          }
+        }
+      );
+    }
+  }, [currentLocation]);
+
+  if (!todayForecast) return null;
+
   return (
     <TodayContainer>
       <ColumnContainer>
-        <div>Time</div>
+        <div>{todayForecast.time}</div>
         <div>
-          <h2>Temperature</h2>
+          <h2>{todayForecast.time}</h2>
         </div>
         <div>
-          <h3>Sky</h3>
+          <h3>{todayForecast.sky}</h3>
         </div>
-        <div>Rain %</div>
+        <div>{todayForecast.rain}</div>
       </ColumnContainer>
       <CustomCenteredContainer>
-        <div>Min/max Temp</div>
+        <div>{todayForecast.avgtemp}</div>
       </CustomCenteredContainer>
     </TodayContainer>
   );
