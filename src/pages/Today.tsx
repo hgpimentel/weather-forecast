@@ -109,10 +109,10 @@ const Today: React.FC = () => {
           <h3>Feels like: {todayForecast.feelsLike} ºC</h3>
         </div>
         <div>
-          <h3>Humidity: {todayForecast.humidity} %</h3>
+          <h3>Humidity: {todayForecast.humidity}%</h3>
         </div>
         <div>
-          <h3>Clouds: {todayForecast.clouds} %</h3>
+          <h3>Clouds: {todayForecast.clouds}%</h3>
         </div>
         <div>
           <h3>Wind: {todayForecast.windSpeed} m/s</h3>

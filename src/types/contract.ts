@@ -30,6 +30,7 @@ export interface components {
     } & { [key: string]: any };
     Temp: {
       day: number;
+      min: number;
       max: number;
       night: number;
       eve: number;
@@ -43,7 +44,7 @@ export interface components {
       pressure: { [key: string]: any };
       humidity: number;
       wind_speed: number;
-      weather: components["schemas"]["Weather"];
+      weather: components["schemas"]["Weather"][];
       clouds: number;
       rain: number;
       uvi: number;

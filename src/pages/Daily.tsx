@@ -19,17 +19,18 @@ const CustomCenteredContainer = styled(CenteredContainer)`
 
   & > * {
     flex-grow: 1;
-    max-width: 100px;
+    max-width: 150px;
     display: flex;
     justify-content: center;
   }
 `;
 
 interface DailyForecast {
-  day: number;
-  avgTemp: number;
-  sky: number;
-  rain: string;
+  day: Date;
+  minTemp: number;
+  maxTemp: number;
+  description: string;
+  humidity: number;
   wind: number;
 }
 
@@ -46,10 +47,11 @@ const Daily: React.FC = () => {
         .then((forecasts) => {
           if (forecasts) {
             const dailyForecasts = forecasts.map<DailyForecast>((frc) => ({
-              day: frc.dt,
-              avgTemp: frc.temp.max,
-              sky: frc.clouds,
-              rain: `${frc.rain ? frc.rain : "No rain"}`,
+              day: new Date(frc.dt * 1000),
+              minTemp: frc.temp.min,
+              maxTemp: frc.temp.max,
+              humidity: frc.clouds,
+              description: frc.weather[0].main,
               wind: frc.wind_speed,
             }));
 
@@ -80,13 +82,13 @@ const Daily: React.FC = () => {
           <b>Day</b>
         </div>
         <div>
-          <b>Avg Temp</b>
+          <b>Temperature</b>
         </div>
         <div>
           <b>Sky</b>
         </div>
         <div>
-          <b>Rain</b>
+          <b>Humidity</b>
         </div>
         <div>
           <b>Wind</b>
@@ -95,11 +97,13 @@ const Daily: React.FC = () => {
       {dailyForecasts.map((df) => {
         return (
           <CustomCenteredContainer key={df.day}>
-            <div>{df.day}</div>
-            <div>{df.avgTemp}</div>
-            <div>{df.sky}</div>
-            <div>{df.rain}</div>
-            <div>{df.wind}</div>
+            <div>{df.day.toDateString()}</div>
+            <div>
+              {df.minTemp}/{df.maxTemp} ºC
+            </div>
+            <div>{df.description}</div>
+            <div>{df.humidity}%</div>
+            <div>{df.wind} m/s</div>
           </CustomCenteredContainer>
         );
       })}

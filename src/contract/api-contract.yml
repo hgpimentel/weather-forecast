@@ -47,6 +47,8 @@ components:
       properties:
         day:
           type: number
+        min:
+          type: number
         max:
           type: number
         night:
@@ -57,6 +59,7 @@ components:
           type: number
       required:
         - day
+        - min
         - max
         - night
         - eve
@@ -80,8 +83,9 @@ components:
         wind_speed:
           type: number
         weather:
-          type: object
-          $ref: "#/components/schemas/Weather"
+          type: array
+          items:
+            $ref: "#/components/schemas/Weather"
         clouds:
           type: number
         rain:
