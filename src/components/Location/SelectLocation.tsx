@@ -56,34 +56,30 @@ const SelectLocation: React.FC<{ closeModal: () => void }> = ({
     closeModal();
   };
 
+  if (!locations) return null;
+
   return (
     <ColumnContainer>
       <div>
         <h3>Saved locations</h3>
       </div>
-      {locations ? (
-        <OverflowContainer>
-          {locations.map((location, index) => {
-            return (
-              <CustomCenteredContainer key={index}>
-                <div>{location.city}</div>
-                <div>{location.country}</div>
-                <div>{location.lat}</div>
-                <div>{location.long}</div>
-                <div>
-                  <button onClick={() => onSelect(locations[index])}>
-                    Select
-                  </button>
-                </div>
-              </CustomCenteredContainer>
-            );
-          })}
-        </OverflowContainer>
-      ) : (
-        <div>
-          <h3>No locations found!</h3>
-        </div>
-      )}
+      <OverflowContainer>
+        {locations.map((location, index) => {
+          return (
+            <CustomCenteredContainer key={index}>
+              <div>{location.city}</div>
+              <div>{location.country}</div>
+              <div>{location.lat}</div>
+              <div>{location.long}</div>
+              <div>
+                <button onClick={() => onSelect(locations[index])}>
+                  Select
+                </button>
+              </div>
+            </CustomCenteredContainer>
+          );
+        })}
+      </OverflowContainer>
     </ColumnContainer>
   );
 };

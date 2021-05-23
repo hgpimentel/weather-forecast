@@ -21,7 +21,7 @@ const Modal = styled.div`
   z-index: 100;
   background: white;
   width: 50%;
-  height: 90vh;
+  max-height: 90vh;
   border-radius: 0.5rem;
   overflow: hidden;
 

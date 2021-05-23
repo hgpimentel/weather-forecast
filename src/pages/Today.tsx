@@ -1,5 +1,5 @@
 import styled from "styled-components";
-import { ColumnContainer } from "../components";
+import { ColumnContainer, NotFound } from "../components";
 import { useTodayForecast } from "../hooks";
 
 const TodayContainer = styled.div`
@@ -49,12 +49,7 @@ const Today: React.FC = () => {
 
   if (isLoading) return null;
 
-  if (!todayForecast)
-    return (
-      <div>
-        <h1>No current forecast found!</h1>
-      </div>
-    );
+  if (!todayForecast) return <NotFound message="No current forecast found!" />;
 
   return (
     <TodayContainer>

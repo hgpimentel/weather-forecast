@@ -17,7 +17,7 @@ const App = () => {
           <Daily />
         </Route>
         <Route path="*">
-          <NotFound />
+          <NotFound message="Page not found!" />
         </Route>
       </Switch>
     </Layout>

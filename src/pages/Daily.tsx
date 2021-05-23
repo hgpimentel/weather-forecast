@@ -1,5 +1,5 @@
 import styled from "styled-components";
-import { CenteredContainer, ColumnContainer } from "../components";
+import { CenteredContainer, ColumnContainer, NotFound } from "../components";
 import { useDailyForecasts } from "../hooks";
 
 const DailyContainer = styled(ColumnContainer)`
@@ -40,12 +40,7 @@ const Daily: React.FC = () => {
 
   if (isLoading) return null;
 
-  if (!dailyForecasts)
-    return (
-      <div>
-        <h1>No daily forecasts found!</h1>
-      </div>
-    );
+  if (!dailyForecasts) return <NotFound message="No daily forecasts found!" />;
 
   return (
     <DailyContainer>
