@@ -42,8 +42,8 @@ const Form = styled.form`
 const AddLocation: React.FC<{ closeModal: () => void }> = ({ closeModal }) => {
   const [city, setCity] = useState<string>("");
   const [country, setCountry] = useState<string>("");
-  const [lat, setLat] = useState<number>(0.0);
-  const [long, setLong] = useState<number>(0.0);
+  const [lat, setLat] = useState<string>("0.0");
+  const [long, setLong] = useState<string>("0.0");
   const { onLocationChange } = useContext(LocationContext);
 
   const onSubmit = (e: React.SyntheticEvent) => {
@@ -53,8 +53,8 @@ const AddLocation: React.FC<{ closeModal: () => void }> = ({ closeModal }) => {
     const location: Location = {
       city,
       country,
-      lat,
-      long,
+      lat: parseFloat(lat),
+      long: parseFloat(long),
     };
 
     if (locations) {
@@ -103,7 +103,7 @@ const AddLocation: React.FC<{ closeModal: () => void }> = ({ closeModal }) => {
             id="lat"
             name="lat"
             value={lat}
-            onChange={(e) => setLat(e.target.valueAsNumber)}
+            onChange={(e) => setLat(e.target.value)}
           />
         </div>
         <div>
@@ -113,7 +113,7 @@ const AddLocation: React.FC<{ closeModal: () => void }> = ({ closeModal }) => {
             id="long"
             name="long"
             value={long}
-            onChange={(e) => setLong(e.target.valueAsNumber)}
+            onChange={(e) => setLong(e.target.value)}
           />
         </div>
         <button type="submit" disabled={!canSubmit} onClick={onSubmit}>

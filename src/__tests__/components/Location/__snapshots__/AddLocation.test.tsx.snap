@@ -45,7 +45,7 @@ exports[`Add location component renders correctly 1`] = `
         name="lat"
         onChange={[Function]}
         type="number"
-        value={0}
+        value="0.0"
       />
     </div>
     <div>
@@ -57,7 +57,7 @@ exports[`Add location component renders correctly 1`] = `
         name="long"
         onChange={[Function]}
         type="number"
-        value={0}
+        value="0.0"
       />
     </div>
     <button
