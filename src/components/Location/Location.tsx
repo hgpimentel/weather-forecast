@@ -6,9 +6,21 @@ import ChangeLocationModal from "./ChangeLocationModal";
 
 const CustomCenteredComponent = styled(CenteredContainer)`
   align-items: center;
+  flex-wrap: wrap;
+
+  h4 {
+    margin: 0.5rem;
+  }
+
+  @media (max-width: 767.98px) {
+    flex-direction: column;
+  }
 
   & > * {
     margin-right: 10px;
+    @media (max-width: 767.98px) {
+      margin-bottom: 0.5rem;
+    }
   }
 
   button {

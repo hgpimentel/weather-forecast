@@ -9,6 +9,14 @@ const DailyContainer = styled(ColumnContainer)`
   padding: 2rem;
   border: 5px solid teal;
   border-radius: 1rem;
+
+  @media (max-width: 991.98px) {
+    margin: 0 5%;
+  }
+
+  @media (max-width: 767.98px) {
+    font-size: 14px;
+  }
 `;
 
 const CustomCenteredContainer = styled(CenteredContainer)`
@@ -22,6 +30,10 @@ const CustomCenteredContainer = styled(CenteredContainer)`
     max-width: 150px;
     display: flex;
     justify-content: center;
+  }
+
+  @media (max-width: 575.98px) {
+    flex-direction: column;
   }
 `;
 

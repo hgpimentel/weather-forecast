@@ -4,11 +4,20 @@ import CenteredContainer from "../Container/CenteredContainer";
 import ColumnContainer from "../Container/ColumnContainer";
 import LocationContext, { Location } from "../../store/location-context";
 
+const OverflowContainer = styled.div`
+  height: 250px;
+  overflow-y: scroll;
+`;
+
 const CustomCenteredContainer = styled(CenteredContainer)`
   align-items: center;
   justify-content: space-evenly;
   padding: 1rem;
   border-bottom: 2px solid teal;
+
+  @media (max-width: 575.98px) {
+    flex-direction: column;
+  }
 
   & > * {
     flex-grow: 1;
@@ -53,7 +62,7 @@ const SelectLocation: React.FC<{ closeModal: () => void }> = ({
         <h3>Saved locations</h3>
       </div>
       {locations ? (
-        <>
+        <OverflowContainer>
           {locations.map((location, index) => {
             return (
               <CustomCenteredContainer key={index}>
@@ -69,7 +78,7 @@ const SelectLocation: React.FC<{ closeModal: () => void }> = ({
               </CustomCenteredContainer>
             );
           })}
-        </>
+        </OverflowContainer>
       ) : (
         <div>
           <h3>No locations found!</h3>

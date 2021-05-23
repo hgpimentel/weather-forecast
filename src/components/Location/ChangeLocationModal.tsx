@@ -19,12 +19,23 @@ const Backdrop = styled.div`
 
 const Modal = styled.div`
   z-index: 100;
-  overflow: hidden;
   background: white;
   width: 50%;
+  height: 90vh;
   border-radius: 0.5rem;
+  overflow: hidden;
 
-  & > div {
+  @media (max-width: 991.98px) {
+    width: 75%;
+  }
+
+  @media (max-width: 767.98px) {
+    width: 100%;
+    font-size: 14px;
+    height: 100vh;
+  }
+
+  & > * {
     padding: 0 4rem 2rem;
   }
 

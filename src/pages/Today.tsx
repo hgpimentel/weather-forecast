@@ -13,6 +13,14 @@ const TodayContainer = styled.div`
   border-radius: 1rem;
   align-items: center;
 
+  @media (max-width: 991.98px) {
+    margin: 0 5%;
+  }
+
+  @media (max-width: 767.98px) {
+    flex-direction: column;
+  }
+
   h1 {
     font-size: 4rem;
     margin: 0;
@@ -30,8 +38,11 @@ const TodayContainer = styled.div`
 `;
 
 const CustomColumnContainer = styled(ColumnContainer)`
+  width: 100%;
   & > * {
     margin-bottom: 1rem;
+    display: flex;
+    justify-content: center;
   }
 `;
 
@@ -106,7 +117,7 @@ const Today: React.FC = () => {
       </CustomColumnContainer>
       <CustomColumnContainer>
         <div>
-          <h3>Feels like: {todayForecast.feelsLike} ºC</h3>
+          <h3>Feel: {todayForecast.feelsLike} ºC</h3>
         </div>
         <div>
           <h3>Humidity: {todayForecast.humidity}%</h3>

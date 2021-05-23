@@ -9,6 +9,7 @@ const Header = styled.header`
   width: 100%;
   display: flex;
   justify-content: space-between;
+  flex-wrap: wrap;
   padding: 1rem 10% 0.5rem;
   align-items: center;
   background-color: #008080;
@@ -16,6 +17,11 @@ const Header = styled.header`
 `;
 
 const Nav = styled.nav`
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  padding-top: 1rem;
+
   ul {
     list-style: none;
     display: flex;
@@ -26,6 +32,7 @@ const Nav = styled.nav`
   li {
     margin-left: 1.5rem;
     font-size: 1.25rem;
+    width: 125px;
   }
 
   a {
@@ -43,7 +50,13 @@ const Nav = styled.nav`
 const Logo = styled(ColumnContainer)`
   color: white;
   h1 {
-    margin: 0;
+    margin: 0 0 1rem;
+  }
+  width: 100%;
+  text-align: center;
+
+  @media (max-width: 767.98px) {
+    margin-bottom: 1rem;
   }
 `;
 
