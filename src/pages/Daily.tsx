@@ -1,8 +1,6 @@
-import { useState, useContext, useEffect } from "react";
 import styled from "styled-components";
 import { CenteredContainer, ColumnContainer } from "../components";
-import getDailyForecast from "../api/getDailyForecast";
-import LocationContext from "../store/location-context";
+import { useDailyForecasts } from "../hooks";
 
 const DailyContainer = styled(ColumnContainer)`
   margin: 0 20%;
@@ -37,46 +35,8 @@ const CustomCenteredContainer = styled(CenteredContainer)`
   }
 `;
 
-interface DailyForecast {
-  day: Date;
-  minTemp: number;
-  maxTemp: number;
-  description: string;
-  humidity: number;
-  wind: number;
-}
-
 const Daily: React.FC = () => {
-  const [dailyForecasts, setDailyForecasts] =
-    useState<DailyForecast[] | null>(null);
-  const { currentLocation } = useContext(LocationContext);
-  const [isLoading, setIsLoading] = useState(false);
-
-  useEffect(() => {
-    if (currentLocation) {
-      setIsLoading(true);
-      getDailyForecast(currentLocation.lat, currentLocation.long)
-        .then((forecasts) => {
-          if (forecasts) {
-            const dailyForecasts = forecasts.map<DailyForecast>((frc) => ({
-              day: new Date(frc.dt * 1000),
-              minTemp: frc.temp.min,
-              maxTemp: frc.temp.max,
-              humidity: frc.clouds,
-              description: frc.weather[0].main,
-              wind: frc.wind_speed,
-            }));
-
-            setDailyForecasts(dailyForecasts);
-            return;
-          }
-          setDailyForecasts(null);
-        })
-        .finally(() => {
-          setIsLoading(false);
-        });
-    }
-  }, [currentLocation]);
+  const { dailyForecasts, isLoading } = useDailyForecasts();
 
   if (isLoading) return null;
 
