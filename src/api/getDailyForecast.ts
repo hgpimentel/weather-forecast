@@ -5,7 +5,7 @@ import { endpoint, token } from "../config/api";
 const getDailyForecast = async (lat: number, long: number) => {
   try {
     const { data } = await axios.get<components["schemas"]["ForecastResponse"]>(
-      `${endpoint}?lat=${lat}&lon=${long}&exclude=hourly,current,minutely&appid=${token}`
+      `${endpoint}?lat=${lat}&lon=${long}&exclude=hourly,current,minutely&units=metric&appid=${token}`
     );
     return data.daily;
   } catch (err) {

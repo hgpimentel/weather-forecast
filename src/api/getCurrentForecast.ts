@@ -5,7 +5,7 @@ import { components } from "../types/contract";
 const getCurrentForecast = async (lat: number, long: number) => {
   try {
     const { data } = await axios.get<components["schemas"]["ForecastResponse"]>(
-      `${endpoint}?lat=${lat}&lon=${long}&exclude=hourly,daily,minutely&appid=${token}`
+      `${endpoint}?lat=${lat}&lon=${long}&exclude=hourly,daily,minutely&units=metric&appid=${token}`
     );
     return data.current;
   } catch (err) {

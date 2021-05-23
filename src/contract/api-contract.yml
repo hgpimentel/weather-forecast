@@ -39,6 +39,9 @@ components:
           type: string
         description:
           type: string
+      required:
+        - main
+        - description
     Temp:
       type: object
       properties:
@@ -101,12 +104,14 @@ components:
       type: object
       properties:
         dt:
-          type: string
+          type: number
         sunrise:
-          type: string
+          type: number
         sunset:
-          type: string
+          type: number
         temp:
+          type: number
+        feels_like:
           type: number
         pressure:
           type: number
@@ -119,13 +124,15 @@ components:
         wind_speed:
           type: number
         weather:
-          type: object
-          $ref: "#/components/schemas/Weather"
+          type: array
+          items:
+            $ref: "#/components/schemas/Weather"
       required:
         - dt
         - sunrise
         - sunset
         - temp
+        - feels_like
         - pressure
         - humidity
         - clouds

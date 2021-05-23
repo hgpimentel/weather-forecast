@@ -25,8 +25,8 @@ export interface paths {
 export interface components {
   schemas: {
     Weather: {
-      main?: string;
-      description?: string;
+      main: string;
+      description: string;
     } & { [key: string]: any };
     Temp: {
       day: number;
@@ -49,16 +49,17 @@ export interface components {
       uvi: number;
     } & { [key: string]: any };
     Current: {
-      dt: string;
-      sunrise: string;
-      sunset: string;
+      dt: number;
+      sunrise: number;
+      sunset: number;
       temp: number;
+      feels_like: number;
       pressure: number;
       humidity: number;
       clouds: number;
       visibility: number;
       wind_speed: number;
-      weather: components["schemas"]["Weather"];
+      weather: components["schemas"]["Weather"][];
     } & { [key: string]: any };
     ForecastResponse: {
       lat: number;

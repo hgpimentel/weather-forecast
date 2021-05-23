@@ -1,6 +1,6 @@
 import { useEffect, useContext, useState } from "react";
 import styled from "styled-components";
-import { CenteredContainer, ColumnContainer } from "../components";
+import { ColumnContainer } from "../components";
 import LocationContext from "../store/location-context";
 import getCurrentForecast from "../api/getCurrentForecast";
 
@@ -11,18 +11,39 @@ const TodayContainer = styled.div`
   padding: 2rem;
   border: 5px solid teal;
   border-radius: 1rem;
+  align-items: center;
+
+  h1 {
+    font-size: 4rem;
+    margin: 0;
+  }
+
+  h2 {
+    font-size: 3rem;
+    margin: 0;
+  }
+
+  h3 {
+    font-size: 2rem;
+    margin: 0;
+  }
 `;
 
-const CustomCenteredContainer = styled(CenteredContainer)`
-  align-items: center;
+const CustomColumnContainer = styled(ColumnContainer)`
+  & > * {
+    margin-bottom: 1rem;
+  }
 `;
 
 interface TodayForecast {
-  time: string;
+  time: Date;
   temperature: number;
-  sky: number;
-  rain: number;
-  avgtemp: number;
+  weather: string;
+  weatherDesc: string;
+  feelsLike: number;
+  humidity: number;
+  clouds: number;
+  windSpeed: number;
 }
 
 const Today: React.FC = () => {
@@ -39,11 +60,14 @@ const Today: React.FC = () => {
         .then((forecast) => {
           if (forecast) {
             setTodayForecast({
-              time: forecast.sunrise,
-              rain: forecast.pressure,
-              sky: forecast.humidity,
+              time: new Date(forecast.dt * 1000),
               temperature: forecast.temp,
-              avgtemp: forecast.wind_speed,
+              weather: forecast.weather[0].main,
+              weatherDesc: forecast.weather[0].description,
+              feelsLike: forecast.feels_like,
+              humidity: forecast.humidity,
+              clouds: forecast.clouds,
+              windSpeed: forecast.wind_speed,
             });
             return;
           }
@@ -66,19 +90,34 @@ const Today: React.FC = () => {
 
   return (
     <TodayContainer>
-      <ColumnContainer>
-        <div>{todayForecast.time}</div>
+      <CustomColumnContainer>
         <div>
-          <h2>{todayForecast.time}</h2>
+          <h3>{todayForecast.time.toDateString()}</h3>
         </div>
         <div>
-          <h3>{todayForecast.sky}</h3>
+          <h1>{todayForecast.temperature} ºC</h1>
         </div>
-        <div>{todayForecast.rain}</div>
-      </ColumnContainer>
-      <CustomCenteredContainer>
-        <div>{todayForecast.avgtemp}</div>
-      </CustomCenteredContainer>
+        <div>
+          <h2>{todayForecast.weather}</h2>
+        </div>
+        <div>
+          <h3>{todayForecast.weatherDesc}</h3>
+        </div>
+      </CustomColumnContainer>
+      <CustomColumnContainer>
+        <div>
+          <h3>Feels like: {todayForecast.feelsLike} ºC</h3>
+        </div>
+        <div>
+          <h3>Humidity: {todayForecast.humidity} %</h3>
+        </div>
+        <div>
+          <h3>Clouds: {todayForecast.clouds} %</h3>
+        </div>
+        <div>
+          <h3>Wind: {todayForecast.windSpeed} m/s</h3>
+        </div>
+      </CustomColumnContainer>
     </TodayContainer>
   );
 };
