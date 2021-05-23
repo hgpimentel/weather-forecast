@@ -1,0 +1,42 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Layout component renders correctly 1`] = `
+Array [
+  <header
+    className="sc-fujyAs fGuyzn"
+  >
+    <div
+      className="sc-bdnxRM sc-jrsJWt eoiijl iedUoR"
+    >
+      <h1>
+        Weather Forecast App
+      </h1>
+    </div>
+    <nav
+      className="sc-pNWdM ljLxKa"
+    >
+      <ul>
+        <li>
+          <a
+            aria-current={null}
+            href="/today"
+            onClick={[Function]}
+          >
+            Today
+          </a>
+        </li>
+        <li>
+          <a
+            aria-current={null}
+            href="/next7days"
+            onClick={[Function]}
+          >
+            Next 7 Days
+          </a>
+        </li>
+      </ul>
+    </nav>
+  </header>,
+  <main />,
+]
+`;

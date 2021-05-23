@@ -1,0 +1,72 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Add location component renders correctly 1`] = `
+<div
+  className="sc-bdnxRM eoiijl"
+>
+  <div>
+    <h3>
+      New location
+    </h3>
+  </div>
+  <form
+    className="sc-jrsJWt hSJTmk"
+  >
+    <div>
+      <span>
+        City
+      </span>
+      <input
+        id="city"
+        name="city"
+        onChange={[Function]}
+        type="text"
+        value=""
+      />
+    </div>
+    <div>
+      <span>
+        Country
+      </span>
+      <input
+        id="country"
+        name="country"
+        onChange={[Function]}
+        type="text"
+        value=""
+      />
+    </div>
+    <div>
+      <span>
+        Latitude
+      </span>
+      <input
+        id="lat"
+        name="lat"
+        onChange={[Function]}
+        type="number"
+        value={0}
+      />
+    </div>
+    <div>
+      <span>
+        Longitude
+      </span>
+      <input
+        id="long"
+        name="long"
+        onChange={[Function]}
+        type="number"
+        value={0}
+      />
+    </div>
+    <button
+      disabled={true}
+      onClick={[Function]}
+      type="submit"
+    >
+      Add
+    </button>
+  </form>
+</div>
+`;

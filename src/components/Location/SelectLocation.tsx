@@ -1,4 +1,4 @@
-import React, { useContext } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import styled from "styled-components";
 import CenteredContainer from "../Container/CenteredContainer";
 import ColumnContainer from "../Container/ColumnContainer";
@@ -47,14 +47,19 @@ const CustomCenteredContainer = styled(CenteredContainer)`
 const SelectLocation: React.FC<{ closeModal: () => void }> = ({
   closeModal,
 }) => {
-  const lsItem = localStorage.getItem("locations");
-  const locations = lsItem ? (JSON.parse(lsItem) as Location[]) : null;
+  const [locations, setLocations] = useState<Location[] | null>();
   const { onLocationChange } = useContext(LocationContext);
 
   const onSelect = (location: Location) => {
     onLocationChange(location);
     closeModal();
   };
+
+  useEffect(() => {
+    const lsItem = localStorage.getItem("locations");
+    const locations = lsItem ? (JSON.parse(lsItem) as Location[]) : null;
+    setLocations(locations);
+  }, []);
 
   if (!locations) return null;
 
